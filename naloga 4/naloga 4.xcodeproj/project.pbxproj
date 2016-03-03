@@ -18,6 +18,7 @@
 		2D57AB081C809ADC00091630 /* MonthSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D57AB071C809ADC00091630 /* MonthSelectionView.swift */; };
 		2D68E5F71C8836BD00B9FD01 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D68E5F61C8836BD00B9FD01 /* GraphView.swift */; };
 		2D68E61B1C88690A00B9FD01 /* Income.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D68E61A1C88690A00B9FD01 /* Income.swift */; };
+		2D68E61D1C88773000B9FD01 /* IncomeGraphSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D68E61C1C88773000B9FD01 /* IncomeGraphSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		2D57AB071C809ADC00091630 /* MonthSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthSelectionView.swift; sourceTree = "<group>"; };
 		2D68E5F61C8836BD00B9FD01 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GraphView.swift; path = ../GraphView.swift; sourceTree = "<group>"; };
 		2D68E61A1C88690A00B9FD01 /* Income.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Income.swift; sourceTree = "<group>"; };
+		2D68E61C1C88773000B9FD01 /* IncomeGraphSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeGraphSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				2D57AB051C80909500091630 /* DateTools.swift */,
 				2D68E5F61C8836BD00B9FD01 /* GraphView.swift */,
 				2D68E61A1C88690A00B9FD01 /* Income.swift */,
+				2D68E61C1C88773000B9FD01 /* IncomeGraphSelectionView.swift */,
 			);
 			path = "naloga 4";
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				2D57AAF01C80867F00091630 /* AppDelegate.swift in Sources */,
 				2D57AB081C809ADC00091630 /* MonthSelectionView.swift in Sources */,
 				2D68E5F71C8836BD00B9FD01 /* GraphView.swift in Sources */,
+				2D68E61D1C88773000B9FD01 /* IncomeGraphSelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

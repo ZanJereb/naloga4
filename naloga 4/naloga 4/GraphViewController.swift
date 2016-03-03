@@ -18,13 +18,22 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate {
         super.viewDidLoad()
         dateSelectionView.setDate(NSDate())
         dateSelectionView.delegate = self
+        graphView.maxValue = 100.0
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        graphView.values = [0.1, 0.0, 0.3, 0.6, 0.8, 1.0]
+        Income.fetchDailyIncomes(NSDate(), toDate: NSDate().dateByAddingTimeInterval(60.0*60.0*24.0*30.0)) { (data) -> Void in
+            var values = [CGFloat]()
+            data.forEach({ (item) -> () in
+                values.append(item.value)
+            })
+            self.graphView.values = values
+        }
+        
         graphView.refresh()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,6 +42,13 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate {
     }
     
     func monthSelectionViewDidSelectNewDate(sender: MonthSelectionView, date: NSDate) {
-        print("Date changed: \(date)")
+        Income.fetchDailyIncomes(date, toDate: date.dateByAddingTimeInterval(60.0*60.0*24.0*30.0)) { (data) -> Void in
+            var values = [CGFloat]()
+            data.forEach({ (item) -> () in
+                values.append(item.value)
+            })
+            self.graphView.values = values
+            self.graphView.refresh()
+        }
     }
 }

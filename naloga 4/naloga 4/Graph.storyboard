@@ -25,24 +25,20 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFq-ou-7Ky">
                                         <rect key="frame" x="50" y="0.0" width="220" height="50"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLy-ku-tmg">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLy-ku-tmg">
                                                 <rect key="frame" x="0.0" y="0.0" width="220" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zlm-uy-EG2">
-                                                <rect key="frame" x="-114" y="-33" width="240" height="128"/>
-                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="uLy-ku-tmg" secondAttribute="trailing" id="8Oh-R0-hFC"/>
                                             <constraint firstItem="uLy-ku-tmg" firstAttribute="leading" secondItem="GFq-ou-7Ky" secondAttribute="leading" id="BXl-8L-Siy"/>
+                                            <constraint firstItem="uLy-ku-tmg" firstAttribute="leading" secondItem="GFq-ou-7Ky" secondAttribute="leading" id="MXy-Ls-Kn5"/>
                                             <constraint firstAttribute="bottom" secondItem="uLy-ku-tmg" secondAttribute="bottom" id="MiZ-ny-WBA"/>
-                                            <constraint firstItem="uLy-ku-tmg" firstAttribute="leading" secondItem="zlm-uy-EG2" secondAttribute="trailing" id="TPY-sN-wEs"/>
                                             <constraint firstItem="uLy-ku-tmg" firstAttribute="top" secondItem="GFq-ou-7Ky" secondAttribute="top" id="r2z-Au-DJs"/>
-                                            <constraint firstItem="zlm-uy-EG2" firstAttribute="leading" secondItem="GFq-ou-7Ky" secondAttribute="leading" id="xNr-7P-WYk"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -115,7 +111,7 @@
                                     <outlet property="monthLabel" destination="uLy-ku-tmg" id="mCl-ZQ-tPh"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Rx-Q3-Vi0" userLabel="Graph" customClass="GraphView" customModule="naloga_4" customModuleProvider="target">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Rx-Q3-Vi0" userLabel="Graph" customClass="GraphView" customModule="naloga_4" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="80" width="600" height="520"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>

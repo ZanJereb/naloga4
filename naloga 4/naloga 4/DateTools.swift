@@ -21,4 +21,10 @@ class DateTools: NSObject {
             return date
         }
     }
+    
+    class func beginningOfDay(date: NSDate) -> NSDate {
+        let calendar = NSCalendar.currentCalendar()
+        return calendar.startOfDayForDate(date)
+        
+    }
 }
