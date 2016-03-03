@@ -105,7 +105,7 @@
                                     <outlet property="monthLabel" destination="uLy-ku-tmg" id="mCl-ZQ-tPh"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Rx-Q3-Vi0" userLabel="Graph">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Rx-Q3-Vi0" userLabel="Graph" customClass="GraphView" customModule="naloga_4" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="80" width="600" height="520"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -132,6 +132,7 @@
                     </view>
                     <connections>
                         <outlet property="dateSelectionView" destination="gy9-Vd-1K8" id="htF-xb-yC6"/>
+                        <outlet property="graphView" destination="2Rx-Q3-Vi0" id="ABv-qK-0yD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="68a-Uw-1bF" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -12,10 +12,19 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate {
 
     @IBOutlet weak var dateSelectionView: MonthSelectionView!
     
+    @IBOutlet weak var graphView: GraphView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         dateSelectionView.setDate(NSDate())
         dateSelectionView.delegate = self
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        graphView.values = [0.1, 0.0, 0.3, 0.6, 0.8, 1.0]
+        graphView.refresh()
     }
 
     override func didReceiveMemoryWarning() {
