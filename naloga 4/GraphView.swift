@@ -13,6 +13,13 @@ public class GraphView: UIView {
     public var barWidth: CGFloat = 10.0
     public var maxValue: CGFloat = 1.0
     
+    public enum graphAnimationType{
+        case None
+        case Resize
+        case FromLeft
+        case FromRight
+    }
+    
     public var barColor = UIColor.blackColor() {
         didSet {
             minimumColor = barColor
@@ -26,7 +33,32 @@ public class GraphView: UIView {
     
     public var values = [CGFloat]()
     
-    public func refresh() {
+    public func refresh(animationType: graphAnimationType = .None) {
+
+        switch animationType{
+        
+        case .FromRight:
+            refreshFromRight()
+            break
+            
+        case .FromLeft:
+            refreshFromLeft()
+            break
+            
+        case .None:
+            refreshByResizing()
+            break
+            
+        case .Resize:
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                self.refreshByResizing()
+            })
+            break
+        }
+        
+    }
+    
+    private func refreshByResizing() {
         var separator: CGFloat = 0.0
         if values.count > 0 {
             separator = (self.frame.size.width - barWidth * CGFloat(values.count)) / CGFloat(values.count)
@@ -62,8 +94,98 @@ public class GraphView: UIView {
         }
         oldViews.forEach({ $0.removeFromSuperview() })
         viewContainer = newViews
-        
     }
+    
+    private func refreshFromRight() {
+        var separator: CGFloat = 0.0
+        if values.count > 0 {
+            separator = (self.frame.size.width - barWidth * CGFloat(values.count)) / CGFloat(values.count)
+        }
+        
+        let oldViews = viewContainer
+        var newViews = [UIView]()
+        
+        UIView.setAnimationsEnabled(false)
+        
+        for var index=0; index<values.count; index++ {
+            var targetView:UIView? = nil
+            
+            let x = separator*0.5 + (barWidth + separator)*CGFloat(index)
+            let height = values[index]/maxValue * self.frame.height
+            
+            
+            targetView = UIView()
+            targetView?.frame = CGRect(x: x + self.frame.size.width, y: self.frame.height-height ,width:  barWidth, height: height)
+            self.addSubview(targetView!)
+            
+            
+            if let targetView = targetView {
+                newViews.append(targetView)
+                
+                targetView.backgroundColor = colorForScale(values[index]/maxValue)
+            }
+        }
+        
+        UIView.setAnimationsEnabled(true)
+        
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            oldViews.forEach { (view) -> () in
+                view.center = CGPoint(x: view.center.x-self.frame.size.width, y: view.center.y)
+            }
+            newViews.forEach { (view) -> () in
+                view.center = CGPoint(x: view.center.x-self.frame.size.width, y: view.center.y)
+            }
+            }) { (finished) -> Void in
+                oldViews.forEach({ $0.removeFromSuperview() })
+                self.viewContainer = newViews
+        }
+    }
+    
+    private func refreshFromLeft() {
+        var separator: CGFloat = 0.0
+        if values.count > 0 {
+            separator = (self.frame.size.width - barWidth * CGFloat(values.count)) / CGFloat(values.count)
+        }
+        
+        let oldViews = viewContainer
+        var newViews = [UIView]()
+        
+        UIView.setAnimationsEnabled(false)
+        
+        for var index=0; index<values.count; index++ {
+            var targetView:UIView? = nil
+            
+            let x = separator*0.5 + (barWidth + separator)*CGFloat(index)
+            let height = values[index]/maxValue * self.frame.height
+            
+            
+            targetView = UIView()
+            targetView?.frame = CGRect(x: x - self.frame.size.width, y: self.frame.height-height ,width:  barWidth, height: height)
+            self.addSubview(targetView!)
+            
+            
+            if let targetView = targetView {
+                newViews.append(targetView)
+                
+                targetView.backgroundColor = colorForScale(values[index]/maxValue)
+            }
+        }
+        
+        UIView.setAnimationsEnabled(true)
+        
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            oldViews.forEach { (view) -> () in
+                view.center = CGPoint(x: view.center.x+self.frame.size.width, y: view.center.y)
+            }
+            newViews.forEach { (view) -> () in
+                view.center = CGPoint(x: view.center.x+self.frame.size.width, y: view.center.y)
+            }
+            }) { (finished) -> Void in
+                oldViews.forEach({ $0.removeFromSuperview() })
+                self.viewContainer = newViews
+        }
+    }
+    
     
     private func colorForScale(var scale: CGFloat) -> UIColor {
         if scale < 0.0 {

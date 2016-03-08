@@ -14,9 +14,11 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate {
     
     @IBOutlet weak var graphView: GraphView!
     
+    var selectedDate = NSDate()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        dateSelectionView.setDate(NSDate())
+        dateSelectionView.setDate(selectedDate)
         dateSelectionView.delegate = self
         graphView.maxValue = 10.0
         graphView.minimumColor = UIColor.greenColor()
@@ -35,6 +37,7 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate {
         }
         graphView.refresh()
         
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,10 +52,14 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate {
                 values.append(item.value)
             })
             self.graphView.values = values
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
-                self.graphView.refresh()
-                })
-            
+            if self.selectedDate.compare(date) == NSComparisonResult.OrderedAscending {
+                self.graphView.refresh(.FromRight)
+            } else if self.selectedDate.compare(date) == NSComparisonResult.OrderedDescending {
+                self.graphView.refresh(.FromLeft)
+            } else {
+                self.graphView.refresh(.Resize)
+            }
+            self.selectedDate = date
         }
     }
 }
