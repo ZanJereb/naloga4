@@ -10,8 +10,8 @@ import UIKit
 
 public class GraphView: UIView {
     
-    public var barWidth: CGFloat = 10.0
-    public var maxValue: CGFloat = 1.0
+    public var barWidth: CGFloat = 0.0
+    public var maxValue: CGFloat = 0.0
     
     public enum graphAnimationType{
         case None
@@ -58,7 +58,38 @@ public class GraphView: UIView {
         
     }
     
+    private func getBarWidth() -> CGFloat {
+        if barWidth > 0.0 {
+            return barWidth
+        } else if values.count > 0 {
+            return self.frame.size.width / CGFloat(values.count)
+        } else {
+            return 1.0 // not that it matters
+        }
+    }
+    
+    private func getMaxValue() -> CGFloat {
+        if maxValue > 0.0 {
+            return maxValue
+        } else if values.count > 0{
+            var maxValue: CGFloat = 0.0
+            self.values.forEach({ (item) -> () in
+                if item > maxValue {
+                    maxValue = item
+                }
+            })
+            if maxValue <= 0.0 {
+                maxValue = 1.0
+            }
+            return maxValue
+        } else {
+            return 1.0 // not that it matters
+        }
+    }
+    
     private func refreshByResizing() {
+        let barWidth = getBarWidth()
+        let maxValue = getMaxValue()
         var separator: CGFloat = 0.0
         if values.count > 0 {
             separator = (self.frame.size.width - barWidth * CGFloat(values.count)) / CGFloat(values.count)
@@ -97,6 +128,8 @@ public class GraphView: UIView {
     }
     
     private func refreshFromRight() {
+        let barWidth = getBarWidth()
+        let maxValue = getMaxValue()
         var separator: CGFloat = 0.0
         if values.count > 0 {
             separator = (self.frame.size.width - barWidth * CGFloat(values.count)) / CGFloat(values.count)
@@ -142,6 +175,8 @@ public class GraphView: UIView {
     }
     
     private func refreshFromLeft() {
+        let barWidth = getBarWidth()
+        let maxValue = getMaxValue()
         var separator: CGFloat = 0.0
         if values.count > 0 {
             separator = (self.frame.size.width - barWidth * CGFloat(values.count)) / CGFloat(values.count)
@@ -193,16 +228,19 @@ public class GraphView: UIView {
         } else if scale > 1.0 {
             scale = 1.0
         }
+        
         var minR: CGFloat = 0.0
         var minG: CGFloat = 0.0
         var minB: CGFloat = 0.0
         var minA: CGFloat = 0.0
         minimumColor.getRed(&minR, green: &minG, blue: &minB, alpha: &minA)
+        
         var maxR: CGFloat = 0.0
         var maxG: CGFloat = 0.0
         var maxB: CGFloat = 0.0
         var maxA: CGFloat = 0.0
         maximumColor.getRed(&maxR, green: &maxG, blue: &maxB, alpha: &maxA)
+        
         let red = minR + (maxR-minR)*scale
         let blue = minB + (maxB-minB)*scale
         let green = minG + (maxG-minG)*scale

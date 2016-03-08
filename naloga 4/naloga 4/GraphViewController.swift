@@ -20,7 +20,6 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate {
         super.viewDidLoad()
         dateSelectionView.setDate(selectedDate)
         dateSelectionView.delegate = self
-        graphView.maxValue = 10.0
         graphView.minimumColor = UIColor.greenColor()
         graphView.maximumColor = UIColor.redColor()
     }
