@@ -111,22 +111,36 @@
                                     <outlet property="monthLabel" destination="uLy-ku-tmg" id="mCl-ZQ-tPh"/>
                                 </connections>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Rx-Q3-Vi0" userLabel="Graph" customClass="GraphView" customModule="naloga_4" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="80" width="600" height="520"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3w-5r-jmo">
+                                <rect key="frame" x="30" y="86" width="540" height="350"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Rx-Q3-Vi0" userLabel="Graph" customClass="GraphView" customModule="naloga_4" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="80" width="540" height="270"/>
+                                        <color key="backgroundColor" white="0.93928271812080533" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="2Rx-Q3-Vi0" secondAttribute="height" multiplier="2" id="Z4Q-aR-kiG"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="2Rx-Q3-Vi0" secondAttribute="bottom" id="337-g2-hT5"/>
+                                    <constraint firstItem="2Rx-Q3-Vi0" firstAttribute="leading" secondItem="j3w-5r-jmo" secondAttribute="leading" id="DYm-De-b33"/>
+                                    <constraint firstAttribute="trailing" secondItem="2Rx-Q3-Vi0" secondAttribute="trailing" id="XCs-5A-6VD"/>
+                                    <constraint firstItem="2Rx-Q3-Vi0" firstAttribute="top" secondItem="j3w-5r-jmo" secondAttribute="top" constant="80" id="YgI-Ya-hJK"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gy9-Vd-1K8" firstAttribute="leading" secondItem="2HL-xH-TyR" secondAttribute="leading" id="2sJ-CJ-CcJ"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="2Rx-Q3-Vi0" secondAttribute="bottom" id="8Kl-66-qq9"/>
-                            <constraint firstItem="2Rx-Q3-Vi0" firstAttribute="top" secondItem="gy9-Vd-1K8" secondAttribute="bottom" constant="10" id="CUe-K8-3Su"/>
                             <constraint firstAttribute="bottomMargin" secondItem="gy9-Vd-1K8" secondAttribute="bottom" constant="465" id="EDj-2T-V7D"/>
-                            <constraint firstItem="2Rx-Q3-Vi0" firstAttribute="leading" secondItem="2HL-xH-TyR" secondAttribute="leading" id="W90-PN-1O9"/>
                             <constraint firstAttribute="trailing" secondItem="gy9-Vd-1K8" secondAttribute="trailing" id="abc-h1-lFl"/>
                             <constraint firstItem="gy9-Vd-1K8" firstAttribute="centerX" secondItem="2HL-xH-TyR" secondAttribute="centerX" id="fOc-iM-f3r"/>
-                            <constraint firstAttribute="trailing" secondItem="2Rx-Q3-Vi0" secondAttribute="trailing" id="juc-MN-5jD"/>
                             <constraint firstItem="gy9-Vd-1K8" firstAttribute="top" secondItem="2HL-xH-TyR" secondAttribute="topMargin" constant="20" id="pWO-rv-ft8"/>
+                            <constraint firstAttribute="trailing" secondItem="j3w-5r-jmo" secondAttribute="trailing" constant="30" id="tFf-x4-bn1"/>
+                            <constraint firstItem="j3w-5r-jmo" firstAttribute="leading" secondItem="2HL-xH-TyR" secondAttribute="leading" constant="30" id="x5d-jZ-bE3"/>
+                            <constraint firstItem="j3w-5r-jmo" firstAttribute="top" secondItem="gy9-Vd-1K8" secondAttribute="bottom" constant="16" id="zXq-BQ-P1M"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
