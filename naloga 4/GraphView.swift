@@ -9,11 +9,13 @@
 import UIKit
 
 public class GraphView: UIView {
-
+    
     public var barWidth: CGFloat = 10.0
     public var maxValue: CGFloat = 1.0
     
     public var barColor = UIColor.blackColor()
+    
+    private var viewContainer = [UIView]()
     
     public var values = [CGFloat]()
     
@@ -22,24 +24,39 @@ public class GraphView: UIView {
         if values.count > 0 {
             separator = (self.frame.size.width - barWidth * CGFloat(values.count)) / CGFloat(values.count)
         }
+        
+        var oldViews = viewContainer
+        var newViews = [UIView]()
+        
         for var index=0; index<values.count; index++ {
-            var targetView = viewForIndex(index)
-            if targetView == nil {
-                targetView = UIView()
-                self.addSubview(targetView!)
-            }
+            var targetView:UIView? = nil
             
-            guard let view = targetView else {
-                continue
-            }
-            
-            view.backgroundColor = barColor
             let x = separator*0.5 + (barWidth + separator)*CGFloat(index)
             let height = values[index]/maxValue * self.frame.height
-            view.frame = CGRect(x: x, y: self.frame.height-height, width: barWidth, height: height)
+            let newFrame = CGRect(x: x, y: self.frame.height-height, width: barWidth, height: height)
+            
+            if oldViews.count > 0 {
+                targetView = oldViews.first
+                oldViews.removeFirst()
+            } else {
+                UIView.setAnimationsEnabled(false)
+                targetView = UIView()
+                targetView?.frame = CGRect(x: x, y: self.frame.height ,width:  barWidth, height: height)
+                self.addSubview(targetView!)
+                UIView.setAnimationsEnabled(true)
+            }
+            
+            if let targetView = targetView {
+                newViews.append(targetView)
+                
+                targetView.backgroundColor = barColor
+                targetView.frame = newFrame
+            }
         }
+        oldViews.forEach({ $0.removeFromSuperview() })
+        viewContainer = newViews
+        
     }
-    
     
     
     public func viewForIndex(idnex: Int) -> UIView? {

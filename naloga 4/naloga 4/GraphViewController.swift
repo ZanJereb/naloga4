@@ -18,7 +18,7 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate {
         super.viewDidLoad()
         dateSelectionView.setDate(NSDate())
         dateSelectionView.delegate = self
-        graphView.maxValue = 100.0
+        graphView.maxValue = 10.0
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -31,7 +31,6 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate {
             })
             self.graphView.values = values
         }
-        
         graphView.refresh()
         
     }
@@ -48,7 +47,10 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate {
                 values.append(item.value)
             })
             self.graphView.values = values
-            self.graphView.refresh()
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                self.graphView.refresh()
+                })
+            
         }
     }
 }
