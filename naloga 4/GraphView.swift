@@ -8,10 +8,15 @@
 
 import UIKit
 
+public protocol GraphViewDelegate: class {
+    func valuesForObj(sender: GraphView, value: AnyObject) -> CGFloat
+}
+
 public class GraphView: UIView {
     
     public var barWidth: CGFloat = 0.0
     public var maxValue: CGFloat = 0.0
+    public weak var delegate: GraphViewDelegate?
     
     public enum graphAnimationType{
         case None
@@ -31,7 +36,7 @@ public class GraphView: UIView {
     
     private var viewContainer = [UIView]()
     
-    public var values = [CGFloat]()
+    public var values = [AnyObject]()
     
     public func refresh(animationType: graphAnimationType = .None) {
 
@@ -73,8 +78,8 @@ public class GraphView: UIView {
             return maxValue
         } else if values.count > 0{
             var maxValue: CGFloat = 0.0
-            self.values.forEach({ (item) -> () in
-                if item > maxValue {
+            self.values.forEach({ (rawItem) -> () in
+                if let item = self.delegate?.valuesForObj(self, value: rawItem) where item > maxValue {
                     maxValue = item
                 }
             })
@@ -99,10 +104,14 @@ public class GraphView: UIView {
         var newViews = [UIView]()
         
         for var index=0; index<values.count; index++ {
+            var value: CGFloat = 0.0
+            if let rawValue = self.delegate?.valuesForObj(self, value: values[index]) {
+                value = rawValue
+            }
             var targetView:UIView? = nil
             
             let x = separator*0.5 + (barWidth + separator)*CGFloat(index)
-            let height = values[index]/maxValue * self.frame.height
+            let height = value/maxValue * self.frame.height
             let newFrame = CGRect(x: x, y: self.frame.height-height, width: barWidth, height: height)
             
             if oldViews.count > 0 {
@@ -119,7 +128,7 @@ public class GraphView: UIView {
             if let targetView = targetView {
                 newViews.append(targetView)
                 
-                targetView.backgroundColor = colorForScale(values[index]/maxValue)
+                targetView.backgroundColor = colorForScale(value/maxValue)
                 targetView.frame = newFrame
             }
         }
@@ -141,10 +150,14 @@ public class GraphView: UIView {
         UIView.setAnimationsEnabled(false)
         
         for var index=0; index<values.count; index++ {
+            var value: CGFloat = 0.0
+            if let rawValue = self.delegate?.valuesForObj(self, value: values[index]) {
+                value = rawValue
+            }
             var targetView:UIView? = nil
             
             let x = separator*0.5 + (barWidth + separator)*CGFloat(index)
-            let height = values[index]/maxValue * self.frame.height
+            let height = value/maxValue * self.frame.height
             
             
             targetView = UIView()
@@ -155,7 +168,7 @@ public class GraphView: UIView {
             if let targetView = targetView {
                 newViews.append(targetView)
                 
-                targetView.backgroundColor = colorForScale(values[index]/maxValue)
+                targetView.backgroundColor = colorForScale(value/maxValue)
             }
         }
         
@@ -188,10 +201,14 @@ public class GraphView: UIView {
         UIView.setAnimationsEnabled(false)
         
         for var index=0; index<values.count; index++ {
+            var value: CGFloat = 0.0
+            if let rawValue = self.delegate?.valuesForObj(self, value: values[index]) {
+                value = rawValue
+            }
             var targetView:UIView? = nil
             
             let x = separator*0.5 + (barWidth + separator)*CGFloat(index)
-            let height = values[index]/maxValue * self.frame.height
+            let height = value/maxValue * self.frame.height
             
             
             targetView = UIView()
@@ -202,7 +219,7 @@ public class GraphView: UIView {
             if let targetView = targetView {
                 newViews.append(targetView)
                 
-                targetView.backgroundColor = colorForScale(values[index]/maxValue)
+                targetView.backgroundColor = colorForScale(value/maxValue)
             }
         }
         

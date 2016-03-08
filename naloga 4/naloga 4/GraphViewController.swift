@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GraphViewController: UIViewController, MonthSelectionViewDelegate {
+class GraphViewController: UIViewController, MonthSelectionViewDelegate, GraphViewDelegate {
 
     @IBOutlet weak var dateSelectionView: MonthSelectionView!
     
@@ -22,17 +22,14 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate {
         dateSelectionView.delegate = self
         graphView.minimumColor = UIColor.greenColor()
         graphView.maximumColor = UIColor.redColor()
+        graphView.delegate = self
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         Income.fetchDailyIncomes(NSDate(), toDate: NSDate().dateByAddingTimeInterval(60.0*60.0*24.0*30.0)) { (data) -> Void in
-            var values = [CGFloat]()
-            data.forEach({ (item) -> () in
-                values.append(item.value)
-            })
-            self.graphView.values = values
+            self.graphView.values = data
         }
         graphView.refresh()
         
@@ -59,6 +56,14 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate {
                 self.graphView.refresh(.Resize)
             }
             self.selectedDate = date
+        }
+    }
+
+    func valuesForObj(sender: GraphView, value: AnyObject) -> CGFloat {
+        if let income = value as? Income {
+            return income.value
+        } else {
+            return 0.0
         }
     }
 }

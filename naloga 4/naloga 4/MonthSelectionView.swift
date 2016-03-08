@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MonthSelectionViewDelegate {
+protocol MonthSelectionViewDelegate: class {
     func monthSelectionViewDidSelectNewDate(sender: MonthSelectionView, date: NSDate)
 }
 
@@ -17,7 +17,7 @@ class MonthSelectionView: UIView {
     @IBOutlet private weak var monthLabel: UILabel!
     private var selectedDate = NSDate()
     
-    var delegate: MonthSelectionViewDelegate?
+    weak var delegate: MonthSelectionViewDelegate?
 
     private enum LabelAnimationType{
         case None
