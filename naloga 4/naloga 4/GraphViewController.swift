@@ -43,11 +43,8 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate, GraphVi
     
     func monthSelectionViewDidSelectNewDate(sender: MonthSelectionView, date: NSDate) {
         Income.fetchDailyIncomes(date, toDate: date.dateByAddingTimeInterval(60.0*60.0*24.0*30.0)) { (data) -> Void in
-            var values = [CGFloat]()
-            data.forEach({ (item) -> () in
-                values.append(item.value)
-            })
-            self.graphView.values = values
+            
+            self.graphView.values = data
             if self.selectedDate.compare(date) == NSComparisonResult.OrderedAscending {
                 self.graphView.refresh(.FromRight)
             } else if self.selectedDate.compare(date) == NSComparisonResult.OrderedDescending {
@@ -62,6 +59,8 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate, GraphVi
     func valuesForObj(sender: GraphView, value: AnyObject) -> CGFloat {
         if let income = value as? Income {
             return income.value
+        } else if let floatValue = value as? CGFloat {
+            return floatValue
         } else {
             return 0.0
         }
