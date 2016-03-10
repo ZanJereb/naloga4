@@ -130,13 +130,23 @@
                                     <constraint firstItem="2Rx-Q3-Vi0" firstAttribute="top" secondItem="j3w-5r-jmo" secondAttribute="top" constant="80" id="YgI-Ya-hJK"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RRt-Ix-S0i" customClass="GraphView" customModule="naloga_4" customModuleProvider="target">
+                                <rect key="frame" x="30" y="444" width="540" height="60"/>
+                                <color key="backgroundColor" white="0.90397790827740476" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="zKQ-tN-Px8"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="RRt-Ix-S0i" secondAttribute="trailing" constant="30" id="1U3-99-8Qa"/>
                             <constraint firstItem="gy9-Vd-1K8" firstAttribute="leading" secondItem="2HL-xH-TyR" secondAttribute="leading" id="2sJ-CJ-CcJ"/>
                             <constraint firstAttribute="bottomMargin" secondItem="gy9-Vd-1K8" secondAttribute="bottom" constant="465" id="EDj-2T-V7D"/>
                             <constraint firstAttribute="trailing" secondItem="gy9-Vd-1K8" secondAttribute="trailing" id="abc-h1-lFl"/>
+                            <constraint firstItem="RRt-Ix-S0i" firstAttribute="leading" secondItem="2HL-xH-TyR" secondAttribute="leading" constant="30" id="dhi-OX-YLy"/>
                             <constraint firstItem="gy9-Vd-1K8" firstAttribute="centerX" secondItem="2HL-xH-TyR" secondAttribute="centerX" id="fOc-iM-f3r"/>
+                            <constraint firstItem="RRt-Ix-S0i" firstAttribute="top" secondItem="j3w-5r-jmo" secondAttribute="bottom" constant="8" id="jsF-Vm-orR"/>
                             <constraint firstItem="gy9-Vd-1K8" firstAttribute="top" secondItem="2HL-xH-TyR" secondAttribute="topMargin" constant="20" id="pWO-rv-ft8"/>
                             <constraint firstAttribute="trailing" secondItem="j3w-5r-jmo" secondAttribute="trailing" constant="30" id="tFf-x4-bn1"/>
                             <constraint firstItem="j3w-5r-jmo" firstAttribute="leading" secondItem="2HL-xH-TyR" secondAttribute="leading" constant="30" id="x5d-jZ-bE3"/>

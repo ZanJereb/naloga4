@@ -130,13 +130,15 @@ public class GraphView: UIView {
                 
                 //targetView.backgroundColor = colorForScale(value/maxValue)
                 
+                targetView.frame = newFrame
+                
                 let gradient: CAGradientLayer = CAGradientLayer()
                 
                 gradient.frame = targetView.bounds
-                gradient.colors = [colorForScale(value/maxValue).CGColor, UIColor.greenColor().CGColor]
+                gradient.colors = [colorForScale(value/maxValue).CGColor, minimumColor.CGColor]
                 targetView.layer.insertSublayer(gradient, atIndex: 0)
                 
-                targetView.frame = newFrame
+                
             }
         }
         oldViews.forEach({ $0.removeFromSuperview() })
@@ -181,7 +183,7 @@ public class GraphView: UIView {
                 let gradient: CAGradientLayer = CAGradientLayer()
                 
                 gradient.frame = targetView.bounds
-                gradient.colors = [colorForScale(value/maxValue).CGColor, UIColor.greenColor().CGColor]
+                gradient.colors = [colorForScale(value/maxValue).CGColor, minimumColor.CGColor]
                 targetView.layer.insertSublayer(gradient, atIndex: 0)
             }
         }
@@ -237,7 +239,7 @@ public class GraphView: UIView {
                 let gradient: CAGradientLayer = CAGradientLayer()
                 
                 gradient.frame = targetView.bounds
-                gradient.colors = [colorForScale(value/maxValue).CGColor, UIColor.greenColor().CGColor]
+                gradient.colors = [colorForScale(value/maxValue).CGColor, minimumColor.CGColor]
                 targetView.layer.insertSublayer(gradient, atIndex: 0)
                 
             }

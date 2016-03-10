@@ -20,8 +20,8 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate, GraphVi
         super.viewDidLoad()
         dateSelectionView.setDate(selectedDate)
         dateSelectionView.delegate = self
-        graphView.minimumColor = UIColor.greenColor()
-        graphView.maximumColor = UIColor.redColor()
+        graphView.minimumColor = UIColor.blueColor()
+        graphView.maximumColor = UIColor.magentaColor()
         graphView.delegate = self
     }
     
@@ -73,4 +73,6 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate, GraphVi
             return 0.0
         }
     }
+    
+
 }
