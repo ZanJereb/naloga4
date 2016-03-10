@@ -22,9 +22,30 @@ class DateTools: NSObject {
         }
     }
     
+    class func addDaysToDate(date: NSDate, count: Int) -> NSDate {
+        let calendar = NSCalendar.currentCalendar()
+        let components = NSDateComponents()
+        components.day = count
+        
+        if let newDate = calendar.dateByAddingComponents(components, toDate: date, options: .MatchFirst) {
+            return newDate
+        } else {
+            return date
+        }
+    }
+    
     class func beginningOfDay(date: NSDate) -> NSDate {
         let calendar = NSCalendar.currentCalendar()
         return calendar.startOfDayForDate(date)
         
+    }
+    class func beginningOfMonth(date: NSDate) -> NSDate {
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Month], fromDate: date)
+        if let toReturn = calendar.dateFromComponents(components) {
+            return toReturn
+        } else {
+            return date
+        }
     }
 }

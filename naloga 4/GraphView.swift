@@ -172,6 +172,7 @@ public class GraphView: UIView {
             }
         }
         
+        self.viewContainer = newViews
         UIView.setAnimationsEnabled(true)
         
         UIView.animateWithDuration(0.3, animations: { () -> Void in
@@ -183,7 +184,6 @@ public class GraphView: UIView {
             }
             }) { (finished) -> Void in
                 oldViews.forEach({ $0.removeFromSuperview() })
-                self.viewContainer = newViews
         }
     }
     
@@ -223,6 +223,8 @@ public class GraphView: UIView {
             }
         }
         
+        self.viewContainer = newViews
+        
         UIView.setAnimationsEnabled(true)
         
         UIView.animateWithDuration(0.3, animations: { () -> Void in
@@ -234,7 +236,6 @@ public class GraphView: UIView {
             }
             }) { (finished) -> Void in
                 oldViews.forEach({ $0.removeFromSuperview() })
-                self.viewContainer = newViews
         }
     }
     

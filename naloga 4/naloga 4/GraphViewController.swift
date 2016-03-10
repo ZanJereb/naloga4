@@ -28,7 +28,7 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate, GraphVi
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        Income.fetchDailyIncomes(NSDate(), toDate: NSDate().dateByAddingTimeInterval(60.0*60.0*24.0*30.0)) { (data) -> Void in
+        Income.fetchDailyIncomes(getStartDate(), toDate: getEndDate()) { (data) -> Void in
             self.graphView.values = data
         }
         graphView.refresh()
@@ -41,18 +41,26 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate, GraphVi
         // Dispose of any resources that can be recreated.
     }
     
+    private func getStartDate() -> NSDate {
+        return DateTools.beginningOfMonth(selectedDate)
+    }
+    private func getEndDate() -> NSDate {
+        return DateTools.addMonthsToDate(DateTools.beginningOfMonth(selectedDate), count: 1)
+    }
+    
     func monthSelectionViewDidSelectNewDate(sender: MonthSelectionView, date: NSDate) {
-        Income.fetchDailyIncomes(date, toDate: date.dateByAddingTimeInterval(60.0*60.0*24.0*30.0)) { (data) -> Void in
-            
+        var animationType: GraphView.graphAnimationType = .Resize
+        if self.selectedDate.compare(date) == NSComparisonResult.OrderedAscending {
+            animationType = .FromRight
+        } else if self.selectedDate.compare(date) == NSComparisonResult.OrderedDescending {
+            animationType = .FromLeft
+        }
+        
+        self.selectedDate = date
+        
+        Income.fetchDailyIncomes(getStartDate(), toDate: getEndDate()) { (data) -> Void in
             self.graphView.values = data
-            if self.selectedDate.compare(date) == NSComparisonResult.OrderedAscending {
-                self.graphView.refresh(.FromRight)
-            } else if self.selectedDate.compare(date) == NSComparisonResult.OrderedDescending {
-                self.graphView.refresh(.FromLeft)
-            } else {
-                self.graphView.refresh(.Resize)
-            }
-            self.selectedDate = date
+            self.graphView.refresh(animationType)
         }
     }
 

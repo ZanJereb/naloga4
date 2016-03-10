@@ -50,6 +50,17 @@ class Income: NSObject {
     class func fetchDailyIncomes(startDate: NSDate, toDate endDate: NSDate, callback: (data: [Income]) -> Void) {
         fetchDataFrom(startDate, toDate: endDate) { (data) -> Void in
             var toReturn = [Income]()
+            
+            var dateStamp = DateTools.beginningOfDay(startDate)
+            let dateStampEnd = DateTools.beginningOfDay(endDate)
+            while dateStamp.compare(dateStampEnd) == .OrderedAscending {
+                let newIncome = Income()
+                newIncome.date = dateStamp
+                toReturn.append(newIncome)
+                
+                dateStamp = DateTools.addDaysToDate(dateStamp, count: 1)
+            }
+            
             data.forEach({ income in
                 let beginningDate = DateTools.beginningOfDay(income.date)
                 var target: Income? = nil
@@ -68,6 +79,7 @@ class Income: NSObject {
                 target?.value += income.value
             })
             callback(data: toReturn)
+            print("Returned data for \(startDate) - \(endDate) [\(toReturn.count) items]")
         }
     }
     
