@@ -93,11 +93,11 @@ public class GraphView: UIView {
     }
     
     private func refreshByResizing() {
-        let barWidth = getBarWidth()
+        var separator: CGFloat = 1.0
+        let barWidth = getBarWidth() - separator
         let maxValue = getMaxValue()
-        var separator: CGFloat = 0.0
         if values.count > 0 {
-            separator = (self.frame.size.width - barWidth * CGFloat(values.count)) / CGFloat(values.count)
+            separator = 1.0
         }
         
         var oldViews = viewContainer
@@ -128,7 +128,14 @@ public class GraphView: UIView {
             if let targetView = targetView {
                 newViews.append(targetView)
                 
-                targetView.backgroundColor = colorForScale(value/maxValue)
+                //targetView.backgroundColor = colorForScale(value/maxValue)
+                
+                let gradient: CAGradientLayer = CAGradientLayer()
+                
+                gradient.frame = targetView.bounds
+                gradient.colors = [colorForScale(value/maxValue).CGColor, UIColor.greenColor().CGColor]
+                targetView.layer.insertSublayer(gradient, atIndex: 0)
+                
                 targetView.frame = newFrame
             }
         }
@@ -137,9 +144,10 @@ public class GraphView: UIView {
     }
     
     private func refreshFromRight() {
-        let barWidth = getBarWidth()
+        var separator: CGFloat = 1.0
+        let barWidth = getBarWidth() - separator
         let maxValue = getMaxValue()
-        var separator: CGFloat = 0.0
+        
         if values.count > 0 {
             separator = (self.frame.size.width - barWidth * CGFloat(values.count)) / CGFloat(values.count)
         }
@@ -168,7 +176,13 @@ public class GraphView: UIView {
             if let targetView = targetView {
                 newViews.append(targetView)
                 
-                targetView.backgroundColor = colorForScale(value/maxValue)
+                //targetView.backgroundColor = colorForScale(value/maxValue)
+                
+                let gradient: CAGradientLayer = CAGradientLayer()
+                
+                gradient.frame = targetView.bounds
+                gradient.colors = [colorForScale(value/maxValue).CGColor, UIColor.greenColor().CGColor]
+                targetView.layer.insertSublayer(gradient, atIndex: 0)
             }
         }
         
@@ -188,9 +202,9 @@ public class GraphView: UIView {
     }
     
     private func refreshFromLeft() {
-        let barWidth = getBarWidth()
+        var separator: CGFloat = 1.0
+        let barWidth = getBarWidth() - separator
         let maxValue = getMaxValue()
-        var separator: CGFloat = 0.0
         if values.count > 0 {
             separator = (self.frame.size.width - barWidth * CGFloat(values.count)) / CGFloat(values.count)
         }
@@ -219,7 +233,13 @@ public class GraphView: UIView {
             if let targetView = targetView {
                 newViews.append(targetView)
                 
-                targetView.backgroundColor = colorForScale(value/maxValue)
+                //targetView.backgroundColor = colorForScale(value/maxValue)
+                let gradient: CAGradientLayer = CAGradientLayer()
+                
+                gradient.frame = targetView.bounds
+                gradient.colors = [colorForScale(value/maxValue).CGColor, UIColor.greenColor().CGColor]
+                targetView.layer.insertSublayer(gradient, atIndex: 0)
+                
             }
         }
         
@@ -266,7 +286,15 @@ public class GraphView: UIView {
         
         return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
-    
+
+//    private func colorGradient(let targetView: UIView) {
+//        let view: UIView = UIView(frame: targetView.frame)
+//        let gradient: CAGradientLayer = CAGradientLayer()
+//        
+//        gradient.frame = view.bounds
+//        gradient.colors = [UIColor.greenColor().CGColor, UIColor.redColor().CGColor]
+//        view.layer.insertSublayer(gradient, atIndex: 0)
+//    }
     
     public func viewForIndex(idnex: Int) -> UIView? {
         // TODO: from array
