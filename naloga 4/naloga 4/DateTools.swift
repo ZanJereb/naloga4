@@ -48,4 +48,14 @@ class DateTools: NSObject {
             return date
         }
     }
+    class func dayOfWeek(date: NSDate) -> Int {
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([NSCalendarUnit.Weekday], fromDate: date)
+        return components.weekday
+    }
+    class func dayOfMonth(date: NSDate) -> Int {
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([NSCalendarUnit.Day], fromDate: date)
+        return components.day
+    }
 }

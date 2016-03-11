@@ -14,6 +14,7 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate, GraphVi
     
     @IBOutlet weak var graphView: GraphView!
     
+    
     var selectedDate = NSDate()
     
     override func viewDidLoad() {
@@ -23,6 +24,7 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate, GraphVi
         graphView.minimumColor = UIColor.blueColor()
         graphView.maximumColor = UIColor.magentaColor()
         graphView.delegate = self
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -30,10 +32,8 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate, GraphVi
         
         Income.fetchDailyIncomes(getStartDate(), toDate: getEndDate()) { (data) -> Void in
             self.graphView.values = data
+            self.graphView.refresh()
         }
-        graphView.refresh()
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,5 +74,20 @@ class GraphViewController: UIViewController, MonthSelectionViewDelegate, GraphVi
         }
     }
     
+    func graphShouldRefreshLabel(label: UILabel, value: AnyObject) {
+        if let income = value as? Income where DateTools.dayOfWeek(income.date) == 2 {
+            label.font = UIFont.boldSystemFontOfSize(12.0)
+            label.frame = CGRect(x: 0.0, y: 0.0, width: 20.0, height: 20.0)
+            label.layer.cornerRadius = 10.0
+            label.backgroundColor = UIColor.redColor()
+            label.textColor = UIColor.whiteColor()
+            label.text = "\(DateTools.dayOfMonth(income.date))"
+            label.hidden = false
+            label.clipsToBounds = true
+        } else {
+            label.text = nil
+            label.hidden = true
+        }
+    }
 
 }

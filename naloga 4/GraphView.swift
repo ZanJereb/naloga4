@@ -8,11 +8,14 @@
 
 import UIKit
 
-public protocol GraphViewDelegate: class {
+@objc public protocol GraphViewDelegate: class {
     func valuesForObj(sender: GraphView, value: AnyObject) -> CGFloat
+    
+    optional func graphShouldRefreshLabel(label: UILabel, value: AnyObject)
 }
 
 public class GraphView: UIView {
+    
     
     public var barWidth: CGFloat = 0.0
     public var maxValue: CGFloat = 0.0
@@ -25,6 +28,34 @@ public class GraphView: UIView {
         case FromRight
     }
     
+    private class BarView: UIView {
+        var _label: UILabel?
+        var label:UILabel {
+            set {
+                _label = newValue
+            }
+            get {
+                if let label = _label{
+                    return label
+                } else {
+                    let newLabel = UILabel(frame: CGRect())
+                    addSubview(newLabel)
+                    _label = newLabel
+                    newLabel.textAlignment = .Center
+                    
+                    return newLabel
+                }
+            
+            }
+        }
+        
+        override var frame:CGRect {
+            didSet {
+                self.label.center = CGPoint(x: self.frame.size.width*0.5, y: self.frame.size.height + self.label.frame.size.height*0.5)
+            }
+        }
+    }
+    
     public var barColor = UIColor.blackColor() {
         didSet {
             minimumColor = barColor
@@ -34,7 +65,7 @@ public class GraphView: UIView {
     public var minimumColor = UIColor.blackColor()
     public var maximumColor = UIColor.blackColor()
     
-    private var viewContainer = [UIView]()
+    private var viewContainer = [BarView]()
     
     public var values = [AnyObject]()
     
@@ -96,30 +127,32 @@ public class GraphView: UIView {
         var separator: CGFloat = 1.0
         let barWidth = getBarWidth() - separator
         let maxValue = getMaxValue()
+
         if values.count > 0 {
             separator = 1.0
         }
         
         var oldViews = viewContainer
-        var newViews = [UIView]()
+        var newViews = [BarView]()
         
         for var index=0; index<values.count; index++ {
             var value: CGFloat = 0.0
             if let rawValue = self.delegate?.valuesForObj(self, value: values[index]) {
                 value = rawValue
             }
-            var targetView:UIView? = nil
+            var targetView:BarView? = nil
             
             let x = separator*0.5 + (barWidth + separator)*CGFloat(index)
             let height = value/maxValue * self.frame.height
             let newFrame = CGRect(x: x, y: self.frame.height-height, width: barWidth, height: height)
+            
             
             if oldViews.count > 0 {
                 targetView = oldViews.first
                 oldViews.removeFirst()
             } else {
                 UIView.setAnimationsEnabled(false)
-                targetView = UIView()
+                targetView = BarView()
                 targetView?.frame = CGRect(x: x, y: self.frame.height ,width:  barWidth, height: 0)
                 self.addSubview(targetView!)
                 UIView.setAnimationsEnabled(true)
@@ -130,6 +163,9 @@ public class GraphView: UIView {
                 
                 //targetView.backgroundColor = colorForScale(value/maxValue)
                 
+                
+                evaluateTextLabelForBar(targetView, data: values[index])
+                
                 targetView.frame = newFrame
                 
                 let gradient: CAGradientLayer = CAGradientLayer()
@@ -139,9 +175,11 @@ public class GraphView: UIView {
                 targetView.layer.insertSublayer(gradient, atIndex: 0)
                 
                 
+                
             }
         }
         oldViews.forEach({ $0.removeFromSuperview() })
+        
         viewContainer = newViews
     }
     
@@ -155,7 +193,7 @@ public class GraphView: UIView {
         }
         
         let oldViews = viewContainer
-        var newViews = [UIView]()
+        var newViews = [BarView]()
         
         UIView.setAnimationsEnabled(false)
         
@@ -164,19 +202,22 @@ public class GraphView: UIView {
             if let rawValue = self.delegate?.valuesForObj(self, value: values[index]) {
                 value = rawValue
             }
-            var targetView:UIView? = nil
+            var targetView:BarView? = nil
             
             let x = separator*0.5 + (barWidth + separator)*CGFloat(index)
             let height = value/maxValue * self.frame.height
             
             
-            targetView = UIView()
-            targetView?.frame = CGRect(x: x + self.frame.size.width, y: self.frame.height-height ,width:  barWidth, height: height)
-            self.addSubview(targetView!)
-            
+            targetView = BarView()
             
             if let targetView = targetView {
+                evaluateTextLabelForBar(targetView, data: values[index])
+                targetView.frame = CGRect(x: x + self.frame.size.width, y: self.frame.height-height ,width:  barWidth, height: height)
+                self.addSubview(targetView)
+                
                 newViews.append(targetView)
+                
+
                 
                 //targetView.backgroundColor = colorForScale(value/maxValue)
                 
@@ -212,7 +253,7 @@ public class GraphView: UIView {
         }
         
         let oldViews = viewContainer
-        var newViews = [UIView]()
+        var newViews = [BarView]()
         
         UIView.setAnimationsEnabled(false)
         
@@ -221,20 +262,22 @@ public class GraphView: UIView {
             if let rawValue = self.delegate?.valuesForObj(self, value: values[index]) {
                 value = rawValue
             }
-            var targetView:UIView? = nil
+            var targetView:BarView? = nil
             
             let x = separator*0.5 + (barWidth + separator)*CGFloat(index)
             let height = value/maxValue * self.frame.height
             
+            targetView = BarView()
             
-            targetView = UIView()
-            targetView?.frame = CGRect(x: x - self.frame.size.width, y: self.frame.height-height ,width:  barWidth, height: height)
-            self.addSubview(targetView!)
             
             
             if let targetView = targetView {
                 newViews.append(targetView)
+                evaluateTextLabelForBar(targetView, data: values[index])
+
                 
+                targetView.frame = CGRect(x: x - self.frame.size.width, y: self.frame.height-height ,width:  barWidth, height: height)
+                self.addSubview(targetView)
                 //targetView.backgroundColor = colorForScale(value/maxValue)
                 let gradient: CAGradientLayer = CAGradientLayer()
                 
@@ -259,6 +302,10 @@ public class GraphView: UIView {
             }) { (finished) -> Void in
                 oldViews.forEach({ $0.removeFromSuperview() })
         }
+    }
+    
+    private func evaluateTextLabelForBar(bar: BarView, data: AnyObject) {
+        delegate?.graphShouldRefreshLabel?(bar.label, value: data)
     }
     
     
@@ -288,18 +335,5 @@ public class GraphView: UIView {
         
         return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
-
-//    private func colorGradient(let targetView: UIView) {
-//        let view: UIView = UIView(frame: targetView.frame)
-//        let gradient: CAGradientLayer = CAGradientLayer()
-//        
-//        gradient.frame = view.bounds
-//        gradient.colors = [UIColor.greenColor().CGColor, UIColor.redColor().CGColor]
-//        view.layer.insertSublayer(gradient, atIndex: 0)
-//    }
     
-    public func viewForIndex(idnex: Int) -> UIView? {
-        // TODO: from array
-        return nil
-    }
 }

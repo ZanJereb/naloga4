@@ -78,7 +78,13 @@ class Income: NSObject {
                 }
                 target?.value += income.value
             })
-            callback(data: toReturn)
+            dispatch_async(dispatch_queue_create("mock", DISPATCH_QUEUE_SERIAL), { () -> Void in
+                NSThread.sleepForTimeInterval(0.2)
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    callback(data: toReturn)
+                })
+            })
+            
             print("Returned data for \(startDate) - \(endDate) [\(toReturn.count) items]")
         }
     }

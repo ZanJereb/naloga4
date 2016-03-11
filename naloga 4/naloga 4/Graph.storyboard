@@ -25,7 +25,7 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFq-ou-7Ky">
                                         <rect key="frame" x="50" y="0.0" width="220" height="50"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLy-ku-tmg">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLy-ku-tmg">
                                                 <rect key="frame" x="0.0" y="0.0" width="220" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -33,18 +33,6 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="uLy-ku-tmg" secondAttribute="trailing" id="8Oh-R0-hFC"/>
-                                            <constraint firstItem="uLy-ku-tmg" firstAttribute="leading" secondItem="GFq-ou-7Ky" secondAttribute="leading" id="BXl-8L-Siy"/>
-                                            <constraint firstItem="uLy-ku-tmg" firstAttribute="leading" secondItem="GFq-ou-7Ky" secondAttribute="leading" id="MXy-Ls-Kn5"/>
-                                            <constraint firstAttribute="bottom" secondItem="uLy-ku-tmg" secondAttribute="bottom" id="MiZ-ny-WBA"/>
-                                            <constraint firstItem="uLy-ku-tmg" firstAttribute="top" secondItem="GFq-ou-7Ky" secondAttribute="top" id="r2z-Au-DJs"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="BXl-8L-Siy"/>
-                                            </mask>
-                                        </variation>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0fD-fO-NA5">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -112,7 +100,7 @@
                                 </connections>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3w-5r-jmo">
-                                <rect key="frame" x="30" y="86" width="540" height="350"/>
+                                <rect key="frame" x="30" y="86" width="540" height="400"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Rx-Q3-Vi0" userLabel="Graph" customClass="GraphView" customModule="naloga_4" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="80" width="540" height="270"/>
@@ -124,14 +112,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="2Rx-Q3-Vi0" secondAttribute="bottom" id="337-g2-hT5"/>
+                                    <constraint firstAttribute="bottom" secondItem="2Rx-Q3-Vi0" secondAttribute="bottom" constant="50" id="337-g2-hT5"/>
                                     <constraint firstItem="2Rx-Q3-Vi0" firstAttribute="leading" secondItem="j3w-5r-jmo" secondAttribute="leading" id="DYm-De-b33"/>
                                     <constraint firstAttribute="trailing" secondItem="2Rx-Q3-Vi0" secondAttribute="trailing" id="XCs-5A-6VD"/>
                                     <constraint firstItem="2Rx-Q3-Vi0" firstAttribute="top" secondItem="j3w-5r-jmo" secondAttribute="top" constant="80" id="YgI-Ya-hJK"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RRt-Ix-S0i" customClass="GraphView" customModule="naloga_4" customModuleProvider="target">
-                                <rect key="frame" x="30" y="444" width="540" height="60"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RRt-Ix-S0i" userLabel="DateView" customClass="DateGraphLabels" customModule="naloga_4" customModuleProvider="target">
+                                <rect key="frame" x="30" y="494" width="540" height="60"/>
                                 <color key="backgroundColor" white="0.90397790827740476" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="zKQ-tN-Px8"/>

@@ -15,6 +15,7 @@ protocol MonthSelectionViewDelegate: class {
 class MonthSelectionView: UIView {
 
     @IBOutlet private weak var monthLabel: UILabel!
+    
     private var selectedDate = NSDate()
     
     weak var delegate: MonthSelectionViewDelegate?
